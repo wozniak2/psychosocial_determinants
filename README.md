@@ -4,8 +4,8 @@
 <br>
 The repository contains source files and data to replicate the results presented in the paper:
 
-* <b>rec2.csv<\b> - is data file
-* <b>log_reg.R<\b> is R script for obtaining results from the paper
+* <b>rec2.csv</b> - is data file
+* <b>log_reg.R</b> is R script for obtaining results from the paper
 
 Below you'll find session info for the computations under R environment.
 
