@@ -94,8 +94,6 @@ pairs(pr)
 
 ## Plotting the effects 
 
-par(mfrow=c(2,3))
-
 p1 <- plot(predictorEffect("PlaceOfLive", m1, residuals=TRUE), 
            lines=list(multiline=TRUE, z.var="", lty=1:4), 
            lattice=list(strip=list(factor.names=TRUE, values=TRUE, cex=1.5), key.args=list(space="top",
@@ -153,9 +151,6 @@ p4 <-  plot(predictorEffect("kids", m1, residuals=TRUE),
 
 
 grid.arrange(p1, p2, p3, p4, ncol = 2)
-
-eall.lm1 <- predictorEffects(m2)
-plot(eall.lm1)
 
 
 
