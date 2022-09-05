@@ -2,7 +2,7 @@
 <i> by Sandra Wajchman-Świtalska, Olga Grabowska-Chenczke, Marcin Woźniak and Bibianna Bałaj </i>
 <br>
 <br>
-### The repository contains source file and data file to replicate the results presented in the paper:
+### The repository contains source file and data file to replicate the results presented in the paper (doi:...):
 * <b>rec2.csv</b> is data file
 * <b>log_reg.R</b> is R script for obtaining results from the paper
 
