@@ -2,12 +2,12 @@
 <i> by Sandra Wajchman-Świtalska, Olga Grabowska-Chenczke, Marcin Woźniak and Bibianna Bałaj </i>
 <br>
 <br>
-The repository contains source file and data file to replicate the results presented in the paper:
+<font size="4"> The repository contains source file and data file to replicate the results presented in the paper:
 
 * <b>rec2.csv</b> is data file
 * <b>log_reg.R</b> is R script for obtaining results from the paper
 
-Below you'll find session info for the computations under R environment.
+Below you'll find session info for the computations under R environment.</font>
 
 ```
 > sessionInfo()
