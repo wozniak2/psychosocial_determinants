@@ -3,8 +3,8 @@
 <br>
 <br>
 ### The repository contains source file and data file to replicate the results presented in the paper: (doi:...):
-* <b>rec2.csv</b> is data file
-* <b>log_reg.R</b> is R script for obtaining results from the paper
+* <b>rec2.csv</b> is data file with coded responses collected from 376 respondents
+* <b>log_reg.R</b> is R script for obtaining ordinal logistic regression results from the paper
 
 Below you'll find session info for the computations under R environment.
 
