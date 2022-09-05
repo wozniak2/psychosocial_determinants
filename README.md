@@ -3,7 +3,7 @@
 <br>
 <br>
 <font size = "+2"> The repository contains source file and data file to replicate the results presented in the paper: </font>
-
+ <font size="6"> This is my text number 6</font>
 * <b>rec2.csv</b> is data file
 * <b>log_reg.R</b> is R script for obtaining results from the paper
 
