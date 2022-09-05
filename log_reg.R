@@ -1,9 +1,10 @@
 ##-----------------------------------------------------------------------------------------
-## The scripts contains estimation detials for the paper:
+## The script contains estimation details for the paper:
 ## Psychosocial determinants of recreational activity within urban green spaces 
 ## during the COVID-19 pandemic
 ## by Sandra Wajchman-Switalska, Olga Grabowska-Chenczke, Marcin Wozniak and Bibianna Bałaj
 ## doi: 
+## Session details can be found in Readme file
 ## ----------------------------------------------------------------------------------------
 
 ## Load rec2.csv data to get it work
@@ -20,7 +21,7 @@ library(gridExtra)
 options(contrasts = c("contr.treatment", "contr.poly"))
 
 ## -----------------------
-## Social determinants
+## PART 1: Social determinants
 ## -----------------------
 
 ## variables preprocessing
@@ -165,9 +166,9 @@ lipsitz.test(m1)
 # Pulkstenis-Robinson test
 pulkrob.chisq(m1, c("PlaceOfLive", "status", "kids", "Sex", "job", "edu", "dis"))
 
-## ----------------------------
-## psychological determinants
-## ----------------------------
+## ----------------------------------
+## PART 2: psychological determinants
+## ----------------------------------
 
 ## data preprocessing - stress coping strategies
 
