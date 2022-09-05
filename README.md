@@ -2,8 +2,9 @@
 <i> by Sandra Wajchman-Świtalska, Olga Grabowska-Chenczke, Marcin Woźniak and Bibianna Bałaj </i>
 <br>
 <br>
-The repository contains source files and data to replicate the results presented in the paper.
-*rec2 - is data file
+The repository contains source files and data to replicate the results presented in the paper:
+
+* rec2 - is data file
 * log_reg.R is R script for obtaining results from the paper
 
 Below you'll session info for the computations under R environment.
