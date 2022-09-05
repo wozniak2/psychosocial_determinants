@@ -1,8 +1,9 @@
 ##-----------------------------------------------------------------------------------------
-## The scripts contains estimation detials for
+## The scripts contains estimation detials for the paper:
 ## Psychosocial determinants of recreational activity within urban green spaces 
 ## during the COVID-19 pandemic
 ## by Sandra Wajchman-Switalska, Olga Grabowska-Chenczke, Marcin Wozniak and Bibianna Bałaj
+## doi: 
 ## ----------------------------------------------------------------------------------------
 
 ## Load rec2.csv data to get it work
@@ -10,6 +11,17 @@
 rec2 <- read.csv("C:/Users/.../rec2.csv")
 View(rec2)
 
+## load packages
+require(generalhoslem)
+require(ResourceSelection)
+library(MASS)
+library(effects)
+library(gridExtra) 
+options(contrasts = c("contr.treatment", "contr.poly"))
+
+## -----------------------
+## Social determinants
+## -----------------------
 
 ## variables preprocessing
 
@@ -17,36 +29,45 @@ View(rec2)
 rec$season <- recreation$PoraRokuRekreacji 
 rec2$season <- factor(rec2$season, levels = c("1", "2", "3", "4"), ordered = FALSE)
 
-# dependent var - ordinal
+# dependent variable - ordinal response
 rec2$Frequency_of_activity <- factor(rec2$Frequency_of_activity, 
                                      levels = c("everyday", "monday-friday", 
                                                 "weekends", "few_times_in_month_or_less"), ordered = TRUE)
 
-
+## categorical variables
 # educacation level
 rec2$edu <- factor(rec2$edu, levels = c("1", "2", "3", "4", "5"), ordered = FALSE)
-## marital status
+
+# marital status
 rec2$status <- factor(rec2$status, levels = c("single", "married", "divorced", "widow(er)"), ordered = FALSE)
+
+# employment status
 rec2$job <- factor(rec2$job, levels = c("1", "2", "3", "4", "5", "6", "7"), ordered = FALSE)
+
+#disability
 rec2$disability <- factor(rec2$disability, levels = c("Yes", "No"), ordered = FALSE)
+
+# sex
 rec2$Sex <- factor(rec2$Sex, levels = c("1", "2"), ordered = FALSE)
+
+# place of residence
 rec2$PlaceOfLive <- factor(rec2$PlaceOfLive, 
                            levels = c("village", "city_20000", "city_100000", 
                                       "city_500000", "city_above_500000"), ordered = FALSE)
 
 
 ## numeric variables
+# age
 rec2$Age <- as.numeric(rec2$Age)
+# number of kids
 rec2$kids <- as.numeric(rec2$kids)
 
-
-library(MASS)
-options(contrasts = c("contr.treatment", "contr.poly"))
 
 ## ---------------------------------------------
 ## ordinal logisitc model for social variables
 ## ---------------------------------------------
 
+## model estimation
 m1 <- NULL
 m1 <- polr(Frequency_of_activity~PlaceOfLive+status+kids+Sex+job+edu+disability, 
            data=rec2, Hess = TRUE)
@@ -70,8 +91,7 @@ pr <- profile(m1)
 plot(pr)
 pairs(pr)
 
-#Plotting the effects 
-library(effects)
+## Plotting the effects 
 
 par(mfrow=c(2,3))
 
@@ -131,25 +151,26 @@ p4 <-  plot(predictorEffect("kids", m1, residuals=TRUE),
             axes=list(grid=TRUE, x=list(rotate=30, spp=list(lab="number of kids"), y=list(type="response"))))
 
 
-
-library("gridExtra")   
 grid.arrange(p1, p2, p3, p4, ncol = 2)
 
 eall.lm1 <- predictorEffects(m2)
 plot(eall.lm1)
 
-require(generalhoslem)
-require(ResourceSelection)
-hoslem.test(m1, phat,g=8)
+
+
+## testing output
+# Lipsitz test
 lipsitz.test(m1)
 
+# Pulkstenis-Robinson test
 pulkrob.chisq(m1, c("PlaceOfLive", "status", "kids", "Sex", "job", "edu", "dis"))
 
-## ---------------------------------------------
-## ordinal logisitc models for psychological variables
-## ---------------------------------------------
+## ----------------------------
+## psychological determinants
+## ----------------------------
 
-## data preprocessing
+## data preprocessing - stress coping strategies
+
 rec2$active_coping <- as.numeric(rec2$active_coping)
 rec2$helplesness <- as.numeric(rec2$helplesness)
 rec2$support_seeking <- as.numeric(rec2$support_seeking)
@@ -161,6 +182,9 @@ rec2$religion <- as.numeric(rec2$religion)
 ## ------------------------------------------------------------------------------------------
 ## model for 7 simplified strategies extracted on a basis of Carver Brief COPE Inventory (m3)
 ## ------------------------------------------------------------------------------------------
+
+## model estimation
+m3 <- NULL
 m3 <- polr(Frequency_of_activity ~ active_coping+helplesness+support_seeking+
              avoidance+acceptance+humor+religion, data=rec2, Hess = TRUE,
            method = "logistic")
@@ -196,12 +220,15 @@ pulkrob.chisq(m3, c("active_coping", "helplesness", "support_seeking",
 ## model for raw 14 strategies from the Brief-COPE Inventory (m5)
 ## ---------------------------------------------------------------
 
+## model estimation
+m5 <- NULL
 m5 <- polr(Frequency_of_activity ~ active_coping + planning + positive_reframing + 
              acceptance + humor + religion + emotional_support + instrumental_support +
              attention + denial + venting + substance_use + disengagement + self_blame, data=rec2)
 
 
 summary(m5)
+
 ## calculate and store p values
 ctable5 <- coef(summary(m5))
 p5 <- pnorm(abs(ctable5[, "t value"]), lower.tail = FALSE) * 2
@@ -263,7 +290,7 @@ p7 <- plot(predictorEffect("denial", m5, residuals=TRUE),
            #      confint=list(style="auto"),
            axes=list(grid=TRUE, x=list(rotate=30, spp=list(lab="denial strategy"), y=list(type="response"))))
 
-library("gridExtra")   
+  
 grid.arrange(p5, p6, p7, ncol = 2)
 
 
@@ -311,6 +338,6 @@ p10 <- plot(predictorEffect("avoidance", m3, residuals=TRUE),
             #      confint=list(style="auto"),
             axes=list(grid=TRUE, x=list(rotate=30, spp=list(lab="avoidance strategy"), y=list(type="response"))))
 
-library("gridExtra")   
+  
 grid.arrange(p8, p9, p10, ncol = 2)
 
